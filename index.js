@@ -1,6 +1,7 @@
 import "dotenv/config";
 import express from "express";
 const app = express()
+import "./database/connect_db.js";
 
 //VAMOS A TRABAJAR CON JSON
 app.use(express.json())
