@@ -15,3 +15,16 @@ export const generateToken = (id, user, name) => {
         console.log(e)
     }
 }
+
+
+export const saveInCookie = (res, token) => {
+    try {
+        let tiempoVidaToken = 60 * 1 // 60 seg (1 min) * 15 = total = 15 min
+        res.cookie("token", token, {
+            secure: !(process.env.MODO === "developer"),
+            expires: new Date(Date.now() + tiempoVidaToken * 1000)
+        })
+    } catch (e) {
+        console.log(e)
+    }
+}

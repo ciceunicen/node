@@ -8,15 +8,7 @@ import cookie from "cookie-parser";
 import authRoutes from "./routes/auth.route.js";
 import "./libs/initialSetup.js";
 
-
-//SETEAMOS VARIABLES DE ENTORNO
-// dontev.config({
-//     path: './env/.env'
-// })
-
 const app = express()
-
-
 
 //HACEMOS USO DE LAS COOKIES
 app.use(cookie())
@@ -43,13 +35,10 @@ app.use(cors(
 //VAMOS A TRABAJAR CON JSON
 app.use(express.json())
 
-
     //PARA PROCESAR DATOS ENVIADOS DESDE FORMS
     .use(express.urlencoded({
         extended: true
     }))
-
-
 
 /*
 ROUTER

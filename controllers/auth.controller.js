@@ -1,28 +1,38 @@
-
 import User from '../model/User.js'
 import Role from '../model/Role.js'
-import { generateToken } from '../utils/tokenManager.js';
+import { generateToken, saveInCookie } from '../utils/tokenManager.js';
 
 export const register = async (req, res) => {
     try {
 
-        let { nombre, pass, usuario, email } = req.body;
+        let { nombre, pass, usuario, email, roles } = req.body;
 
-        const rol = await Role.findOne({ tipo: "usuario" });
-        if (!rol)
-            return res.status(403).json({ error: "No existe ese rol en la base de datos" });
-
-        const newUser = new User({
-            nombre,
-            usuario,
-            pass: await User.encryptPassword(pass),
-            email,
-            roles: rol._id
-        })
-
-        await newUser.save()
-        return res.status(201).json({ ok: "ok" });
-
+        if (!roles) {
+            const rol = await Role.findOne({ tipo: "usuario" });
+            if (!rol)
+                return res.status(403).json({ error: "No existe ese rol en la base de datos" });
+            const newUser = new User({
+                nombre,
+                usuario,
+                pass: await User.encryptPassword(pass),
+                email,
+                roles: rol._id
+            })
+            await newUser.save()
+            return res.status(201).json({ ok: "ok" });
+        }
+        else {
+            const rol = await Role.find({ tipo: { $in: roles } });
+            const newUser = new User({
+                nombre,
+                usuario,
+                pass: await User.encryptPassword(pass),
+                email,
+                roles: rol.map(role => role._id)
+            })
+            await newUser.save()
+            return res.status(201).json({ ok: "ok" });
+        }
     } catch (error) {
         if (error.code === 11000) {
             return res.status(403).json({ error: error.keyValue, message: "ya existe ese dato registrado " });
@@ -38,7 +48,6 @@ export const login = async (req, res) => {
         const user = await User.findOne({ usuario }).populate("roles");
         console.log(user)
 
-
         if (!user)
             return res.status(403).json({ error: "No existe el usuario" });
 
@@ -53,12 +62,7 @@ export const login = async (req, res) => {
 
         //GENERAR TOKEN
         const { token, tiempoVidaToken } = generateToken(_id, usuario, nombre)
-        res.cookie("token", token, {
-
-            secure: !(process.env.MODO === "developer"),
-            expires: new Date(Date.now() + tiempoVidaToken * 1000)
-        })
-
+        saveInCookie(res, token)
 
         return res.status(201).json({ token, tiempoVidaToken, _id, nombre, email, usuario, rol: roles })
 
