@@ -9,6 +9,7 @@ export const generateToken = (id, user, name) => {
 
         //EL SIGN CONTIENE EL PAYLOAD QUE ES LA INFORMACION DEL USUARIO
         let token = jwt.sign({ id, usuario: user, nombre: name }, process.env.JWT_SECRET, { expiresIn: tiempoVidaToken })
+
         return { token, tiempoVidaToken }
     } catch (e) {
         console.log(e)

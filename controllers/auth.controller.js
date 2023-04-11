@@ -53,6 +53,12 @@ export const login = async (req, res) => {
 
         //GENERAR TOKEN
         const { token, tiempoVidaToken } = generateToken(_id, usuario, nombre)
+        res.cookie("token", token, {
+
+            secure: !(process.env.MODO === "developer"),
+            expires: new Date(Date.now() + tiempoVidaToken * 1000)
+        })
+
 
         return res.status(201).json({ token, tiempoVidaToken, _id, nombre, email, usuario, rol: roles })
 
