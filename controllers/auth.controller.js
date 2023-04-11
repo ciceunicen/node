@@ -54,7 +54,7 @@ export const login = async (req, res) => {
         //GENERAR TOKEN
         const { token, tiempoVidaToken } = generateToken(_id, usuario, nombre)
 
-        return res.status(201).json({ token, tiempoVidaToken, rol: roles[0].tipo })
+        return res.status(201).json({ token, tiempoVidaToken, _id, nombre, email, usuario, rol: roles })
 
     } catch (e) {
         console.log(e)
