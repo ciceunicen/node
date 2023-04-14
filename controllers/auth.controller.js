@@ -73,7 +73,7 @@ export const login = async (req, res) => {
     }
 }
 
-exports.logout = (req, res) => {
+export const logout = (req, res) => {
     res.clearCookie('token');
     res.json({ logout: true })
 }

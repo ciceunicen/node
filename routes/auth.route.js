@@ -8,7 +8,8 @@ import { body } from "express-validator";
 
 import {
     register,
-    login
+    login,
+    logout
 } from "../controllers/auth.controller.js";
 
 
@@ -37,7 +38,7 @@ router.post('/login',
     login
 )
 
-router.get('/logout', authController.logout)
+router.get('/logout', logout)
 
 
 export default router;
