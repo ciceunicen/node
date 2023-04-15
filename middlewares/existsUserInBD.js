@@ -3,9 +3,9 @@ import User from '../model/User.js'
 
 export const existsUserInBD = async (req, res, next) => {
 
-    const user = req.body.usuario
+    const user = req.body.email
     try {
-        const existe = await User.findOne({ usuario: user })
+        const existe = await User.findOne({ email: user })
 
         if (existe) {
             return res.status(400).json({

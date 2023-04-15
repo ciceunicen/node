@@ -45,9 +45,9 @@ export const createSuperAdmin = async () => {
 
         const newUser = await User.create({
             nombre: process.env.SUPER_ADMIN_NOMBRE,
-            pass: await User.encryptPassword(process.env.SUPER_ADMIN_PASSWORD),
-            usuario: process.env.SUPER_ADMIN_USUARIO,
+            apellido: process.env.SUPER_ADMIN_NOMBRE,
             email: process.env.SUPER_ADMIN_EMAIL,
+            pass: await User.encryptPassword(process.env.SUPER_ADMIN_PASSWORD),
             roles: rol.id,
         });
         console.log(`new user created: ${newUser}`);

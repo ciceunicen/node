@@ -5,7 +5,7 @@ import { generateToken, saveInCookie } from '../utils/tokenManager.js';
 export const register = async (req, res) => {
     try {
 
-        let { nombre, pass, usuario, email, roles } = req.body;
+        let { nombre, apellido, pass, email, roles } = req.body;
 
         if (!roles) {
             const rol = await Role.findOne({ tipo: "usuario" });
@@ -13,7 +13,7 @@ export const register = async (req, res) => {
                 return res.status(403).json({ error: "No existe ese rol en la base de datos" });
             const newUser = new User({
                 nombre,
-                usuario,
+                apellido,
                 pass: await User.encryptPassword(pass),
                 email,
                 roles: rol._id
@@ -25,7 +25,7 @@ export const register = async (req, res) => {
             const rol = await Role.find({ tipo: { $in: roles } });
             const newUser = new User({
                 nombre,
-                usuario,
+                apellido,
                 pass: await User.encryptPassword(pass),
                 email,
                 roles: rol.map(role => role._id)
@@ -43,9 +43,9 @@ export const register = async (req, res) => {
 
 export const login = async (req, res) => {
     try {
-        let { usuario, pass } = req.body;
+        let { email, pass } = req.body;
 
-        const user = await User.findOne({ usuario }).populate("roles");
+        const user = await User.findOne({ email }).populate("roles");
         console.log(user)
 
         if (!user)
@@ -57,14 +57,14 @@ export const login = async (req, res) => {
             return res.status(403).json({ error: "Password incorrecto" });
 
 
-        let { _id, nombre, email, roles } = user
+        let { _id, nombre, apellido, roles } = user
 
 
         //GENERAR TOKEN
-        const { token, tiempoVidaToken } = generateToken(_id, usuario, nombre)
+        const { token, tiempoVidaToken } = generateToken(_id, email, nombre)
         saveInCookie(res, token)
 
-        return res.status(201).json({ token, tiempoVidaToken, _id, nombre, email, usuario, rol: roles })
+        return res.status(201).json({ token, tiempoVidaToken, _id, nombre, email, apellido, rol: roles })
 
     } catch (e) {
         console.log(e)
