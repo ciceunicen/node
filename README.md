@@ -3,20 +3,26 @@
 
 ## Paso 1.
 ### Instalación.
-1. Descargar e instalar ***Node js*** en su ordenador [Link](https://nodejs.org/es).
-2. Clonar el archivo [Link](https://github.com/ciceunicen/node).
+1. Descargar e instalar ***Node js*** en su ordenador 
+[Link](https://nodejs.org/es).
+2. Clonar el archivo 
+[Link](https://github.com/ciceunicen/node).
 3. Abrir la consola (cmd u otro) en la raiz del proyecto.
 4. Ejecutar el comando ***npm i*** para instalar automáticamente todas las dependencias.
 5. Levantar el proyecto con algún editor de código.
-6. Crear un archivo ***.env*** para las varibles. Ver el archivo ***.env_example.*** para ejemplo.
+6. Crear un archivo ***.env*** para las varibles de entorno. Ver el archivo ***.env_example.*** para ejemplo.
 
 ## Paso 2.
 ### Como conectarse a MongoDB.
 1. Crear cuenta en MongoCloud [Link](https://cloud.mongodb.com).
-2. Ir a ***Database Access*** ![Link](./documentacion/MongoDB/01-dataAccess.jpg).
-3. Crear ***Usuario y Password*** ![Link](./documentacion/MongoDB/02-crearUseryPass.jpg).
-4. ***Conectarse*** ![Link](./documentacion/MongoDB/03-conectarse.jpg).
-5. Una vez realizo estos pasos se ***generará una URI*** ![Link](./documentacion/MongoDB/04-URI.jpg).
+2. Ir a ***Database Access*** 
+![Link](./documentacion/MongoDB/01-dataAccess.jpg).
+3. Crear ***Usuario y Password*** 
+![Link](./documentacion/MongoDB/02-crearUseryPass.jpg).
+4. ***Conectarse*** 
+![Link](./documentacion/MongoDB/03-conectarse.jpg).
+5. Una vez realizo estos pasos se ***generará una URI*** 
+![Link](./documentacion/MongoDB/04-URI.jpg).
 
 ### Paso 3
 ### Modificar URI de MongoBD.
