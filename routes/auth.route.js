@@ -9,15 +9,17 @@ import { body } from "express-validator";
 import {
     register,
     login,
-    logout
+    logout,
+    // getAll,
+    // editRole
 } from "../controllers/auth.controller.js";
 
 
-router.post('/register',
+router.post('/usuarios',
     [
         body("nombre", "faltan ingresar datos").trim().isLength({ min: 1 }),
         body("apellido", "faltan ingresar datos").trim().isLength({ min: 1 }),
-        body("pass", "minimo 6 caracteres").trim().isLength({ min: 6 }),
+        body("pass", "minimo 8 caracteres").trim().isLength({ min: 8 }),
         body("pass", "Formato de pass incorrecto").custom(
             (value, { req }) => {
                 if (value !== req.body.re_pass) {
@@ -36,10 +38,10 @@ router.post('/register',
 )
 
 
-router.post('/login',
+router.post('/auth/login',
     [
         body("email", "minimo 4 letras").trim().isLength({ min: 4 }),
-        body("pass", "minimo 6 caracteres").trim().isLength({ min: 6 }),
+        body("pass", "minimo 8 caracteres").trim().isLength({ min: 8 }),
         body("pass", "maximo 20 caracteres").trim().isLength({ max: 20 }),
     ],
     validatorExpress,
@@ -48,5 +50,6 @@ router.post('/login',
 
 router.get('/logout', logout)
 
-
+// router.get('/usuarios', getAll)
+// router.put('/usuarios/:id/:tipo', editRole)
 export default router;

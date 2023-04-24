@@ -6,6 +6,7 @@ import express from "express";
 import cors from "cors";
 import cookie from "cookie-parser";
 import authRoutes from "./routes/auth.route.js";
+import userRoutes from "./routes/user.route.js";
 import "./libs/initialSetup.js";
 
 const app = express()
@@ -20,7 +21,6 @@ const whiteList = [process.env.ORIGIN1, process.env.ORIGIN2, process.env.ORIGIN3
 app.use(cors(
     {
         origin: function (origin, callback) {
-            // console.log("🤞🤞🤞 => ", origin);
             if (!origin || whiteList.includes(origin)) {
                 return callback(null, origin);
             }
@@ -29,8 +29,6 @@ app.use(cors(
     }
 )
 )
-
-
 
 //VAMOS A TRABAJAR CON JSON
 app.use(express.json())
@@ -43,11 +41,12 @@ app.use(express.json())
 /*
 ROUTER
 */
-app.use("/api", authRoutes);
+app.use("/", authRoutes);
+app.use("/", userRoutes);
 
 const PORT = process.env.PORT || 5000
 app.listen(PORT, () => {
-    console.log(`👍👍👍 Escuchando en el puerto ${PORT}`)
+    console.log(`Escuchando en el puerto ${PORT}`)
 })
 
 
