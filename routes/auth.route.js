@@ -10,8 +10,6 @@ import {
     register,
     login,
     logout,
-    // getAll,
-    // editRole
 } from "../controllers/auth.controller.js";
 
 
@@ -50,6 +48,4 @@ router.post('/auth/login',
 
 router.get('/logout', logout)
 
-// router.get('/usuarios', getAll)
-// router.put('/usuarios/:id/:tipo', editRole)
 export default router;

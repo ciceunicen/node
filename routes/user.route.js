@@ -1,15 +1,13 @@
 import express from "express";
 const router = express.Router();
-
-// import { validatorExpress } from "../middlewares/validatorExpress.js";
-// import { existsUserInBD } from "../middlewares/existsUserInBD.js";
+import { requiereToken } from "../middlewares/requiereToken.js";
 
 import {
     getAll,
     editRole
 } from "../controllers/user.controller.js";
 
-router.get('/usuarios', getAll)
-router.put('/usuarios/:id/:tipo', editRole)
+router.get('/usuarios', requiereToken, getAll)
+router.put('/usuarios/:id/:tipo', requiereToken, editRole)
 
 export default router;
