@@ -4,6 +4,7 @@ import Role from '../model/Role.js'
 export const getAll = async (req, res) => {
 
     try {
+        console.log("entroooooooooooooooo")
         const user = await User.find().populate("roles");
 
         if (user) {
